@@ -55,6 +55,7 @@ export default function Game() {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+  const [ascOrder, setAscOrder] = useState(true);
 
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -65,6 +66,8 @@ export default function Game() {
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
+
+
 
   const moves = history.map((squares, move) => {
     if(currentMove === move && history.length - 1 === move) {
@@ -86,12 +89,21 @@ export default function Game() {
     );
   });
 
+  if (!ascOrder) {
+    moves.reverse();
+  }
+
   return (
     <div className="game">
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className="game-info">
+        <button onClick={
+          () => {
+            setAscOrder(!ascOrder);
+          }
+        }>{ascOrder ? "升序": "降序"}</button>
         <ol>{moves}</ol>
       </div>
     </div>
