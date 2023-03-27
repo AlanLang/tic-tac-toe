@@ -71,6 +71,10 @@ body {
   width: 34px;
 }
 
+.win {
+  background: #f00;
+}
+
 .board-row:after {
   clear: both;
   content: '';
