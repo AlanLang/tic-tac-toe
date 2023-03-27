@@ -56,6 +56,18 @@ function Board({ xIsNext, squares, onPlay }) {
   );
 }
 
+function getSquaresDiff(squares1, squares2) {
+  if(!squares1 || !squares2) {
+    return -1
+  }
+  for(let i = 0; i < squares1.length; i++) {
+    if(squares1[i] !== squares2[i]) {
+      return i
+    }
+  }
+  return -1;
+}
+
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
@@ -84,7 +96,10 @@ export default function Game() {
     
     let description;
     if (move > 0) {
-      description = "Go to move #" + move;
+      const diff = getSquaresDiff(squares, history[move - 1]);
+      const row = Math.floor(diff / 3);
+      const col = diff % 3;
+      description = `Go to move #${move}, (${row}, ${col})`;
     } else {
       description = "Go to game start";
     }
