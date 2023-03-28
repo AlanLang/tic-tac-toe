@@ -88,7 +88,7 @@ export default function Game() {
 
 
   const moves = history.map((squares, move) => {
-    if(currentMove === move && history.length - 1 === move) {
+    if(currentMove === move) {
       return <li key={move}>
         You are at move #{move}
       </li>
